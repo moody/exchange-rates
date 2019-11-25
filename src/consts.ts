@@ -32,7 +32,7 @@ export type CurrencyType =
   | "USD"
   | "ZAR";
 
-export const Currencies: { [key in CurrencyType]: string } = {
+export const Currencies: Record<CurrencyType, string> = {
   AUD: "Australian Dollar",
   BGN: "Bulgarian Lev",
   BRL: "Brazilian Real",
