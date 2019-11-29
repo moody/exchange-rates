@@ -32,6 +32,6 @@ export type CurrencyType =
   | "USD"
   | "ZAR";
 
-export type Rates = {
+export type RatesType = {
   [key in CurrencyType]?: number;
 };
