@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { CurrencyType } from "../consts";
+import { CurrencyType } from "@/types";
 
 @Component
 export default class CurrencyIcon extends Vue {

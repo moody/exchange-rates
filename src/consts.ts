@@ -1,36 +1,4 @@
-export type CurrencyType =
-  | "AUD"
-  | "BGN"
-  | "BRL"
-  | "CAD"
-  | "CHF"
-  | "CNY"
-  | "CZK"
-  | "DKK"
-  | "GBP"
-  | "HKD"
-  | "HRK"
-  | "HUF"
-  | "IDR"
-  | "ILS"
-  | "INR"
-  | "ISK"
-  | "JPY"
-  | "KRW"
-  | "MXN"
-  | "MYR"
-  | "NOK"
-  | "NZD"
-  | "PHP"
-  | "PLN"
-  | "RON"
-  | "RUB"
-  | "SEK"
-  | "SGD"
-  | "THB"
-  | "TRY"
-  | "USD"
-  | "ZAR";
+import { CurrencyType } from "./types";
 
 export const Currencies: Record<CurrencyType, string> = {
   AUD: "Australian Dollar",
