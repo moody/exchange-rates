@@ -33,11 +33,6 @@ class Currency extends VuexModule implements ICurrencyState {
     this.rates = rates;
   }
 
-  @Mutation
-  private setIsFetching(b: boolean) {
-    this.isFetching = b;
-  }
-
   @Action({ rawError: true })
   public async fetch() {
     this.setIsFetching(true);
@@ -50,6 +45,11 @@ class Currency extends VuexModule implements ICurrencyState {
       .finally(() => this.setIsFetching(false));
   }
 
+  @Mutation
+  private setIsFetching(b: boolean) {
+    this.isFetching = b;
+  }
+
   get rateData() {
     return Object.entries(this.rates)
       .sort((a, b) => (a[0] > b[0] ? 1 : -1))
@@ -58,7 +58,7 @@ class Currency extends VuexModule implements ICurrencyState {
         const rate = arr[1] as number;
         return {
           currency,
-          rate,
+          rate: rate.toFixed(2),
           name: CURRENCY_NAME_MAP[currency]
         };
       });
