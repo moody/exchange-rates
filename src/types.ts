@@ -7,6 +7,7 @@ export type CurrencyType =
   | "CNY"
   | "CZK"
   | "DKK"
+  | "EUR"
   | "GBP"
   | "HKD"
   | "HRK"
