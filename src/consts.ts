@@ -1,6 +1,6 @@
 import { CurrencyType } from "./types";
 
-export const Currencies: Record<CurrencyType, string> = {
+export const CURRENCY_NAME_MAP: Record<CurrencyType, string> = {
   AUD: "Australian Dollar",
   BGN: "Bulgarian Lev",
   BRL: "Brazilian Real",
