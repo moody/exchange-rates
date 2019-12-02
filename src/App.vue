@@ -17,6 +17,8 @@
 
     <v-content>
       <v-container grid-list-xl wrap>
+        <base-currency-select />
+
         <v-layout row wrap>
           <v-flex
             xs12
@@ -42,20 +44,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { CurrencyModule } from "@/store/modules/currency";
+import BaseCurrencySelect from "@/components/BaseCurrencySelect.vue";
 import CurrencyCard from "@/components/CurrencyCard.vue";
 
 @Component({
   name: "App",
-  components: { CurrencyCard },
+  components: { BaseCurrencySelect, CurrencyCard },
   created() {
     CurrencyModule.fetch();
   }
 })
 export default class App extends Vue {
-  get baseCurrency() {
-    return CurrencyModule.baseCurrency;
-  }
-
   get currenciesToDisplay() {
     return CurrencyModule.currenciesToDisplay;
   }
