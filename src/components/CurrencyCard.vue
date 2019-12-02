@@ -15,12 +15,18 @@
       <span class="ml-2">{{ currency }}</span>
     </v-card-title>
 
-    <v-card-subtitle>
-      {{ name }}
-    </v-card-subtitle>
+    <v-card-subtitle>{{ name }}</v-card-subtitle>
 
     <v-card-text>
-      1 {{ baseCurrency }} = {{ rate }} {{ currency }}.
+      <v-skeleton-loader
+        :loading="isFetching"
+        transition="fade-transition"
+        max-width="50%"
+        type="text"
+        ><span
+          >1 {{ baseCurrency }} = {{ rate }} {{ currency }}.</span
+        ></v-skeleton-loader
+      >
     </v-card-text>
   </v-card>
 </template>
@@ -42,6 +48,10 @@ export default class CurrencyCard extends Vue {
 
   get baseCurrency() {
     return CurrencyModule.baseCurrency;
+  }
+
+  get isFetching() {
+    return CurrencyModule.isFetching;
   }
 
   get rate() {
