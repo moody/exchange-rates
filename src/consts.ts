@@ -35,3 +35,9 @@ export const CURRENCY_NAME_MAP: Record<CurrencyType, string> = {
   USD: "United States Dollar",
   ZAR: "South African Rand"
 };
+
+export const SORTED_CURRENCIES: CurrencyType[] = Object.entries(
+  CURRENCY_NAME_MAP
+)
+  .sort((a, b) => (a[0] > b[0] ? 1 : -1))
+  .map(arr => arr[0] as CurrencyType);

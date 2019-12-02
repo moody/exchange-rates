@@ -6,6 +6,7 @@ import {
   getModule
 } from "vuex-module-decorators";
 import axios from "axios";
+import { SORTED_CURRENCIES } from "@/consts";
 import { CurrencyType, RatesType } from "@/types";
 import store from "@/store";
 
@@ -54,9 +55,7 @@ class Currency extends VuexModule implements ICurrencyState {
    * displayed.
    */
   get currenciesToDisplay() {
-    return Object.entries(this.rates)
-      .sort((a, b) => (a[0] > b[0] ? 1 : -1))
-      .map(arr => arr[0] as CurrencyType);
+    return SORTED_CURRENCIES.filter(c => c !== this.baseCurrency);
   }
 }
 
