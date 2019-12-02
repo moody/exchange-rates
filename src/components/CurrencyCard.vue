@@ -56,7 +56,7 @@ export default class CurrencyCard extends Vue {
 
   get rate() {
     const r = CurrencyModule.rates[this.currency] as number;
-    return r ? r.toFixed(2) : "??";
+    return r ? r.toFixed(6) : "??";
   }
 
   get name() {
