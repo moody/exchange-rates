@@ -6,7 +6,6 @@ import {
   getModule
 } from "vuex-module-decorators";
 import axios from "axios";
-import { CURRENCY_NAME_MAP } from "@/consts";
 import { CurrencyType, RatesType } from "@/types";
 import store from "@/store";
 
@@ -50,18 +49,14 @@ class Currency extends VuexModule implements ICurrencyState {
     this.isFetching = b;
   }
 
-  get rateData() {
+  /**
+   * Returns a sorted array of currency keys for which rates should be
+   * displayed.
+   */
+  get currenciesToDisplay() {
     return Object.entries(this.rates)
       .sort((a, b) => (a[0] > b[0] ? 1 : -1))
-      .map(arr => {
-        const currency = arr[0] as CurrencyType;
-        const rate = arr[1] as number;
-        return {
-          currency,
-          rate: rate.toFixed(2),
-          name: CURRENCY_NAME_MAP[currency]
-        };
-      });
+      .map(arr => arr[0] as CurrencyType);
   }
 }
 

@@ -23,23 +23,10 @@
             md6
             lg4
             xl3
-            v-for="item in rateData"
-            :key="item.currency"
+            v-for="currency in currenciesToDisplay"
+            :key="currency"
           >
-            <v-card>
-              <v-card-title class="mb-1">
-                <currency-icon :currency="item.currency" size="30" />
-                <span class="ml-2">{{ item.currency }}</span>
-              </v-card-title>
-
-              <v-card-subtitle>
-                {{ item.name }}
-              </v-card-subtitle>
-
-              <v-card-text>
-                1 {{ baseCurrency }} = {{ item.rate }} {{ item.currency }}.
-              </v-card-text>
-            </v-card>
+            <currency-card :currency="currency" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -55,12 +42,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { CurrencyModule } from "@/store/modules/currency";
-import { CurrencyType } from "@/types";
-import CurrencyIcon from "@/components/CurrencyIcon.vue";
+import CurrencyCard from "@/components/CurrencyCard.vue";
 
 @Component({
   name: "App",
-  components: { CurrencyIcon },
+  components: { CurrencyCard },
   created() {
     CurrencyModule.fetch();
   }
@@ -70,8 +56,8 @@ export default class App extends Vue {
     return CurrencyModule.baseCurrency;
   }
 
-  get rateData() {
-    return CurrencyModule.rateData;
+  get currenciesToDisplay() {
+    return CurrencyModule.currenciesToDisplay;
   }
 }
 </script>
