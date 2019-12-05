@@ -11,6 +11,12 @@ import { SORTED_CURRENCIES } from "@/consts";
 import { CurrencyType } from "@/types";
 import store from "@/store";
 
+if (process.env.NODE_ENV !== "production") {
+  const MockAdapter = require("axios-mock-adapter");
+  const mock = new MockAdapter(axios);
+  mock.onGet().reply(200, require("./fetch-mock"));
+}
+
 type IRates = {
   [key in CurrencyType]: number[];
 };
