@@ -2,8 +2,8 @@
   <v-card>
     <v-sheet class="v-sheet--offset mx-auto" color="green" elevation="6">
       <v-sparkline
-        :labels="['0', '1', '2', '3', '4']"
-        :value="[1, 2, 0, 3, 4]"
+        :labels="labels"
+        :value="rates"
         color="white"
         line-width="2"
         padding="16"
@@ -54,9 +54,17 @@ export default class CurrencyCard extends Vue {
     return CurrencyModule.isFetching;
   }
 
+  get labels() {
+    return CurrencyModule.labels;
+  }
+
+  get rates() {
+    return CurrencyModule.rates[this.currency] || [];
+  }
+
   get rate() {
-    const r = CurrencyModule.rates[this.currency] as number;
-    return r ? r.toFixed(6) : "??";
+    const rates = CurrencyModule.rates[this.currency];
+    return rates ? rates[rates.length - 1].toFixed(6) : "??";
   }
 
   get name() {
