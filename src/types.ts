@@ -32,7 +32,3 @@ export type CurrencyType =
   | "TRY"
   | "USD"
   | "ZAR";
-
-export type RatesType = {
-  [key in CurrencyType]?: number;
-};

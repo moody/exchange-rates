@@ -6,20 +6,48 @@ import {
   getModule
 } from "vuex-module-decorators";
 import axios from "axios";
+import moment from "moment";
 import { SORTED_CURRENCIES } from "@/consts";
-import { CurrencyType, RatesType } from "@/types";
+import { CurrencyType } from "@/types";
 import store from "@/store";
+
+type IRates = {
+  [key in CurrencyType]: number[];
+};
+
+interface IFetchResponse {
+  data: {
+    start_at: string;
+    end_at: string;
+    base: CurrencyType;
+    rates: {
+      [key: string]: {
+        [key in CurrencyType]: number;
+      };
+    };
+  };
+}
 
 export interface ICurrencyState {
   baseCurrency: CurrencyType;
-  rates: RatesType;
+  labels: string[];
+  rates: IRates;
   isFetching: boolean;
 }
+
+const getFetchUrl = (base: CurrencyType) => {
+  const startAt = moment()
+    .subtract(7, "days")
+    .format("YYYY-MM-DD");
+  const endAt = moment().format("YYYY-MM-DD");
+  return `history?base=${base}&start_at=${startAt}&end_at=${endAt}`;
+};
 
 @Module({ dynamic: true, store, name: "currency" })
 class Currency extends VuexModule implements ICurrencyState {
   public baseCurrency: CurrencyType = "USD";
-  public rates: RatesType = {};
+  public labels: string[] = [];
+  public rates = {} as IRates;
   public isFetching = false;
 
   @Mutation
@@ -28,7 +56,12 @@ class Currency extends VuexModule implements ICurrencyState {
   }
 
   @Mutation
-  public setRates(rates: RatesType) {
+  public setLabels(labels: string[]) {
+    this.labels = labels;
+  }
+
+  @Mutation
+  public setRates(rates: IRates) {
     delete rates[this.baseCurrency];
     this.rates = rates;
   }
@@ -36,10 +69,34 @@ class Currency extends VuexModule implements ICurrencyState {
   @Action({ rawError: true })
   public async fetch() {
     this.setIsFetching(true);
+
     await axios
-      .get(`latest?base=${this.baseCurrency}`)
-      .then(response => {
-        this.setRates(response.data.rates);
+      .get(getFetchUrl(this.baseCurrency))
+      .then((response: IFetchResponse) => {
+        const ratesByDate = Object.entries(response.data.rates);
+        ratesByDate.sort(([aDateStr], [bDateStr]) => {
+          const aDate = new Date(aDateStr);
+          const bDate = new Date(bDateStr);
+          return aDate.getTime() - bDate.getTime();
+        });
+
+        const rates = Object.fromEntries(
+          SORTED_CURRENCIES.map(k => [k, [] as number[]])
+        ) as IRates;
+
+        ratesByDate.forEach(([_, dateRates]) => {
+          for (const k in dateRates) {
+            if (rates.hasOwnProperty(k)) {
+              const currency = k as CurrencyType;
+              rates[currency].push(dateRates[currency]);
+            }
+          }
+        });
+
+        this.setLabels(
+          ratesByDate.map(([dateStr]) => moment(dateStr).format("MMM D"))
+        );
+        this.setRates(rates);
       })
       .catch(error => console.error(error))
       .finally(() => this.setIsFetching(false));
