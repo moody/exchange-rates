@@ -13,7 +13,7 @@ import store from "@/store";
 
 if (process.env.NODE_ENV !== "production") {
   const MockAdapter = require("axios-mock-adapter");
-  const mock = new MockAdapter(axios);
+  const mock = new MockAdapter(axios, { delayResponse: 2000 });
   mock.onGet().reply(200, require("./fetch-mock"));
 }
 
