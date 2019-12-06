@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="CurrencyCard">
     <v-sheet class="v-sheet--offset mx-auto" color="green" elevation="6">
       <v-sparkline
         :labels="labels"
@@ -17,17 +17,7 @@
 
     <v-card-subtitle>{{ name }}</v-card-subtitle>
 
-    <v-card-text>
-      <v-skeleton-loader
-        :loading="isFetching"
-        transition="fade-transition"
-        max-width="50%"
-        type="text"
-        ><span
-          >1 {{ baseCurrency }} = {{ rate }} {{ currency }}.</span
-        ></v-skeleton-loader
-      >
-    </v-card-text>
+    <v-card-text>1 {{ baseCurrency }} = {{ rate }} {{ currency }}.</v-card-text>
   </v-card>
 </template>
 
@@ -50,10 +40,6 @@ export default class CurrencyCard extends Vue {
     return CurrencyModule.baseCurrency;
   }
 
-  get isFetching() {
-    return CurrencyModule.isFetching;
-  }
-
   get labels() {
     return CurrencyModule.labels;
   }
@@ -73,4 +59,15 @@ export default class CurrencyCard extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.CurrencyCard {
+  animation: scale-up 800ms forwards ease-out;
+  transform: scale(0.6);
+}
+
+@keyframes scale-up {
+  100% {
+    transform: none;
+  }
+}
+</style>
