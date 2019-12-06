@@ -16,7 +16,13 @@
     </v-app-bar>
 
     <v-content>
-      <v-container grid-list-xl wrap>
+      <v-container v-if="isFetching" fill-height>
+        <v-layout align-center justify-center>
+          <v-progress-circular indeterminate />
+        </v-layout>
+      </v-container>
+
+      <v-container v-else grid-list-xl wrap>
         <base-currency-select />
 
         <v-layout row wrap>
@@ -57,6 +63,10 @@ import CurrencyCard from "@/components/CurrencyCard.vue";
 export default class App extends Vue {
   get currenciesToDisplay() {
     return CurrencyModule.currenciesToDisplay;
+  }
+
+  get isFetching() {
+    return CurrencyModule.isFetching;
   }
 }
 </script>
