@@ -22,7 +22,7 @@
         </v-layout>
       </v-container>
 
-      <v-container v-else grid-list-xl wrap>
+      <v-container v-else grid-list-xl fluid>
         <base-currency-select />
 
         <v-layout row wrap>
