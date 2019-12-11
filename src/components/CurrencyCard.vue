@@ -1,23 +1,31 @@
 <template>
   <v-card class="CurrencyCard">
-    <v-sheet class="v-sheet--offset mx-auto" color="green" elevation="6">
+    <v-card-title>
+      <currency-icon :currency="currency" size="50" />
+      <v-card-subtitle class="ml-3 pa-0">{{ currency }}</v-card-subtitle>
+      <v-spacer />
+      <span>{{ name }}</span>
+    </v-card-title>
+
+    <v-divider />
+
+    <v-sheet class="v-sheet--offset mx-auto" color="grey darken-4" tile>
       <v-sparkline
         :labels="labels"
         :value="rates"
-        color="white"
+        :gradient="gradient"
         line-width="2"
+        smooth="20"
         padding="16"
+        auto-draw
       ></v-sparkline>
     </v-sheet>
 
-    <v-card-title class="mb-1">
-      <currency-icon :currency="currency" size="30" />
-      <span class="ml-2">{{ currency }}</span>
-    </v-card-title>
+    <v-divider />
 
-    <v-card-subtitle>{{ name }}</v-card-subtitle>
-
-    <v-card-text>1 {{ baseCurrency }} = {{ rate }} {{ currency }}.</v-card-text>
+    <v-card-text class="text-center"
+      >1 {{ baseCurrency }} = {{ rate }} {{ currency }}</v-card-text
+    >
   </v-card>
 </template>
 
@@ -33,6 +41,12 @@ import CurrencyIcon from "@/components/CurrencyIcon.vue";
   components: { CurrencyIcon }
 })
 export default class CurrencyCard extends Vue {
+  private readonly gradient = [
+    "#2ECC40", // green
+    "#FFDC00", // yellow
+    "#FF4136" // red
+  ];
+
   @Prop()
   private readonly currency!: CurrencyType;
 
