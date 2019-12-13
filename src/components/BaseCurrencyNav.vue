@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :value="isShown" app>
+  <v-navigation-drawer v-model="isShown" app>
     <v-list-item>
       <v-list-item-title class="title">Base Currency</v-list-item-title>
     </v-list-item>
@@ -50,30 +50,38 @@ import CurrencyIcon from "@/components/CurrencyIcon.vue";
   components: { CurrencyIcon }
 })
 export default class BaseCurrencyNav extends Vue {
-  getCurrencyName(currency: CurrencyType) {
+  public getCurrencyName(currency: CurrencyType) {
     return CURRENCY_NAME_MAP[currency];
   }
 
-  onItemClicked(currency: CurrencyType) {
+  public onItemClicked(currency: CurrencyType) {
     NavigationModule.hide();
     CurrencyModule.setBaseCurrency(currency);
     CurrencyModule.fetch();
   }
 
-  get isShown() {
-    return NavigationModule.isShown;
-  }
-
-  get baseCurrency() {
+  public get baseCurrency() {
     return CurrencyModule.baseCurrency;
   }
 
-  get currenciesToDisplay() {
+  public get currenciesToDisplay() {
     return CurrencyModule.currenciesToDisplay;
   }
 
-  get isFetching() {
+  public get isFetching() {
     return CurrencyModule.isFetching;
+  }
+
+  public get isShown() {
+    return NavigationModule.isShown;
+  }
+
+  public set isShown(b: boolean) {
+    if (b) {
+      NavigationModule.show();
+    } else {
+      NavigationModule.hide();
+    }
   }
 }
 </script>
