@@ -2,7 +2,7 @@
   <v-app>
     <base-currency-nav />
 
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="green" dark>
       <v-app-bar-nav-icon @click.stop="toggleNavigation" />
       <v-toolbar-title>Exchange Rates</v-toolbar-title>
 
