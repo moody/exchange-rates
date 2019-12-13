@@ -1,9 +1,12 @@
 <template>
   <v-app>
+    <base-currency-nav />
+
     <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click.stop="toggleNavigation" />
       <v-toolbar-title>Exchange Rates</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-btn
         href="https://github.com/moody/exchange-rates"
@@ -23,8 +26,6 @@
       </v-container>
 
       <v-container v-else grid-list-xl fluid>
-        <base-currency-select />
-
         <v-layout row wrap>
           <v-flex
             xs12
@@ -50,17 +51,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { CurrencyModule } from "@/store/modules/currency";
-import BaseCurrencySelect from "@/components/BaseCurrencySelect.vue";
+import { NavigationModule } from "@/store/modules/navigation";
+import BaseCurrencyNav from "@/components/BaseCurrencyNav.vue";
 import CurrencyCard from "@/components/CurrencyCard.vue";
 
 @Component({
   name: "App",
-  components: { BaseCurrencySelect, CurrencyCard },
+  components: { BaseCurrencyNav, CurrencyCard },
   created() {
     CurrencyModule.fetch();
   }
 })
 export default class App extends Vue {
+  toggleNavigation() {
+    NavigationModule.toggle();
+  }
+
   get currenciesToDisplay() {
     return CurrencyModule.currenciesToDisplay;
   }
