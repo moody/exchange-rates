@@ -61,7 +61,9 @@ export default class BaseCurrencyNav extends Vue {
 
     // Scroll to top
     const content = this.$el.firstElementChild;
-    if (content) content.scrollTop = 0;
+    if (content) {
+      content.scrollTop = 0;
+    }
   }
 
   public get baseCurrency() {
