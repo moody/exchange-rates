@@ -63,7 +63,7 @@ import CurrencyCard from "@/components/CurrencyCard.vue";
   }
 })
 export default class App extends Vue {
-  toggleNavigation() {
+  public toggleNavigation() {
     NavigationModule.toggle();
   }
 
