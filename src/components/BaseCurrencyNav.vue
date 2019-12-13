@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="isShown" app>
+  <v-navigation-drawer v-model="isShown" app disable-resize-watcher>
     <v-list-item>
       <v-list-item-title class="title">Base Currency</v-list-item-title>
     </v-list-item>
@@ -58,6 +58,10 @@ export default class BaseCurrencyNav extends Vue {
     NavigationModule.hide();
     CurrencyModule.setBaseCurrency(currency);
     CurrencyModule.fetch();
+
+    // Scroll to top
+    const content = this.$el.firstElementChild;
+    if (content) content.scrollTop = 0;
   }
 
   public get baseCurrency() {
@@ -86,4 +90,4 @@ export default class BaseCurrencyNav extends Vue {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
