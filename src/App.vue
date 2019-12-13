@@ -19,9 +19,12 @@
     </v-app-bar>
 
     <v-content>
-      <v-container v-if="isFetching" fill-height>
+      <v-container v-if="isFetching || fetchFailed" fill-height>
         <v-layout align-center justify-center>
-          <v-progress-circular indeterminate />
+          <v-progress-circular v-if="isFetching" indeterminate />
+          <v-btn v-else @click.stop="fetch"
+            >Error fetching data. Try again?</v-btn
+          >
         </v-layout>
       </v-container>
 
@@ -67,8 +70,16 @@ export default class App extends Vue {
     NavigationModule.toggle();
   }
 
+  public fetch() {
+    CurrencyModule.fetch();
+  }
+
   get currenciesToDisplay() {
     return CurrencyModule.currenciesToDisplay;
+  }
+
+  get fetchFailed() {
+    return CurrencyModule.fetchFailed;
   }
 
   get isFetching() {

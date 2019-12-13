@@ -39,6 +39,7 @@ export interface ICurrencyState {
   labels: string[];
   rates: IRates;
   isFetching: boolean;
+  fetchFailed: boolean;
 }
 
 const getFetchUrl = (base: CurrencyType) => {
@@ -55,6 +56,7 @@ class Currency extends VuexModule implements ICurrencyState {
   public labels: string[] = [];
   public rates = {} as IRates;
   public isFetching = false;
+  public fetchFailed = false;
 
   @Mutation
   public setBaseCurrency(currency: CurrencyType) {
@@ -75,6 +77,7 @@ class Currency extends VuexModule implements ICurrencyState {
   @Action({ rawError: true })
   public async fetch() {
     this.setIsFetching(true);
+    this.setFetchFailed(false);
 
     await axios
       .get(getFetchUrl(this.baseCurrency))
@@ -104,13 +107,18 @@ class Currency extends VuexModule implements ICurrencyState {
         );
         this.setRates(rates);
       })
-      .catch(error => console.error(error))
+      .catch(() => this.setFetchFailed(true))
       .finally(() => this.setIsFetching(false));
   }
 
   @Mutation
   private setIsFetching(b: boolean) {
     this.isFetching = b;
+  }
+
+  @Mutation
+  private setFetchFailed(b: boolean) {
+    this.fetchFailed = b;
   }
 
   /**
