@@ -24,3 +24,4 @@ jobs:
         if: success()
         env:
           BUILD_DIR: "dist/"
+          GH_PAT: ${{ secrets.GH_PAT }}
