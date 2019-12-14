@@ -45,8 +45,11 @@
     </v-content>
 
     <v-footer>
-      <v-spacer></v-spacer>
-      <div>&copy; {{ new Date().getFullYear() }}</div>
+      <v-spacer />
+      <div class="font-weight-light body-1">
+        &copy; {{ new Date().getFullYear() }} - Justin Moody
+      </div>
+      <v-spacer />
     </v-footer>
   </v-app>
 </template>
