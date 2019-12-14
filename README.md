@@ -1,29 +1,12 @@
-# exchange-rates
+# Exchange Rates
 
-## Project setup
-```
-npm install
-```
+A simple app which displays exchange rate data retrieved via the [Exchange Rates API](http://exchangeratesapi.io/).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Exchange Rates](screenshot.png?raw=true)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Built With
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vue.js](https://vuejs.org/)
+  - [Vuetify](https://vuetifyjs.com/en/)
+  - [Vuex](https://vuex.vuejs.org/)
