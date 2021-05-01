@@ -1,5 +1,5 @@
 <template>
-  <v-card class="CurrencyCard">
+  <v-card class="CurrencyCard" color="grey darken-3">
     <v-card-title>
       <currency-icon :currency="currency" size="50" />
       <v-card-subtitle class="ml-3 pa-0">{{ currency }}</v-card-subtitle>
@@ -9,11 +9,12 @@
 
     <v-divider />
 
-    <v-sheet class="v-sheet--offset mx-auto" color="grey darken-4" tile>
+    <v-sheet class="v-sheet--offset mx-auto" tile>
       <v-sparkline
         :labels="labels"
         :value="rates"
         :gradient="gradient"
+        color="white"
         line-width="2"
         smooth="20"
         padding="16"
@@ -38,13 +39,13 @@ import CurrencyIcon from "@/components/CurrencyIcon.vue";
 
 @Component({
   name: "CurrencyCard",
-  components: { CurrencyIcon }
+  components: { CurrencyIcon },
 })
 export default class CurrencyCard extends Vue {
   private readonly gradient = [
     "#2ECC40", // green
     "#FFDC00", // yellow
-    "#FF4136" // red
+    "#FF4136", // red
   ];
 
   @Prop()
