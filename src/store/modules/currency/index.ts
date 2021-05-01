@@ -3,7 +3,7 @@ import {
   VuexModule,
   Mutation,
   Action,
-  getModule
+  getModule,
 } from "vuex-module-decorators";
 import axios from "axios";
 import moment from "moment";
@@ -47,7 +47,7 @@ const getFetchUrl = (base: CurrencyType) => {
     .subtract(7, "days")
     .format("YYYY-MM-DD");
   const endAt = moment().format("YYYY-MM-DD");
-  return `history?base=${base}&start_at=${startAt}&end_at=${endAt}`;
+  return `timeseries?base=${base}&start_date=${startAt}&end_date=${endAt}`;
 };
 
 @Module({ dynamic: true, store, name: "currency" })
@@ -90,7 +90,7 @@ class Currency extends VuexModule implements ICurrencyState {
         });
 
         const rates = Object.fromEntries(
-          SORTED_CURRENCIES.map(k => [k, [] as number[]])
+          SORTED_CURRENCIES.map((k) => [k, [] as number[]])
         ) as IRates;
 
         ratesByDate.forEach(([_, dateRates]) => {
@@ -126,7 +126,7 @@ class Currency extends VuexModule implements ICurrencyState {
    * displayed.
    */
   get currenciesToDisplay() {
-    return SORTED_CURRENCIES.filter(c => c !== this.baseCurrency);
+    return SORTED_CURRENCIES.filter((c) => c !== this.baseCurrency);
   }
 }
 

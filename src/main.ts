@@ -6,10 +6,10 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "https://api.exchangeratesapi.io";
+axios.defaults.baseURL = "https://api.exchangerate.host";
 
 new Vue({
   store,
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
