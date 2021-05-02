@@ -1,6 +1,6 @@
 # Exchange Rates
 
-A simple app which displays exchange rate data retrieved via the [Exchange Rates API](http://exchangeratesapi.io/).
+A simple app which displays exchange rate data retrieved via the [exchangerate.host API](https://exchangerate.host/).
 
 ![Exchange Rates](screenshot.png?raw=true)
 
