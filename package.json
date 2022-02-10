@@ -26,7 +26,7 @@
     "@vue/cli-service": "^4.5.12",
     "@vue/test-utils": "1.0.0-beta.29",
     "axios-mock-adapter": "^1.17.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "typescript": "~3.5.3",
